@@ -4,7 +4,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Coundown how long the Tesla Roadster has been in space
+* Countdown how long the Tesla Roadster has been in space
 
 ### How do I get set up? ###
 
