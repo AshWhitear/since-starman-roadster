@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>Starman</title>
 
@@ -11,6 +11,8 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
         <style>
             html, body {
                 background-color: #161819;
@@ -32,14 +34,15 @@
                 height: 80vh;
             }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
             .position-ref {
                 position: relative;
+                top: 30%;
+            }
+
+            @media (max-width: 767.98px) {
+                .position-ref {
+                    top: 5%;
+                }
             }
 
             .top-right {
@@ -71,45 +74,106 @@
             }
 
             #roadster-img{
-                position: absolute;
                 bottom: 0px;
                 width: 100%;
                 text-align: center;
+                position: absolute;
+                left: 0px;
+            }
+
+            #roadster-img img{
+                width: 100%;
+            }
+
+            /**/
+
+            @import "compass/css3";
+
+            body{
+                background:radial-gradient(200% 100% at bottom center,#161819,#161819,#161819,#161819);
+                background:radial-gradient(220% 105% at top center,#000 10%,#000 30%,#002e53 75%,#002e53);
+                background-attachment:fixed;
+                overflow:hidden;
+            }
+            @keyframes rotate{
+                0%{
+                    transform:perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
+                }
+                100%{
+                    transform:perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(-360deg);
+                }
+            }
+            .stars{
+                transform:perspective(500px);
+                transform-style:preserve-3d;
+                position:absolute;
+                bottom:0;
+                perspective-origin:50% 100%;
+                left:50%;
+                animation:rotate 90s infinite linear;
+            }
+            .star{
+                width:2px;
+                height:2px;
+                background:#F7F7B6;
+                //border-radius:100%;
+                position:absolute;
+                top:0;
+                left:0;
+                transform-origin:0 0 -300px;
+                transform:translate3d(0,0,-300px);
+                backface-visibility:hidden;
             }
 
         </style>
     </head>
     <body>
-        <canvas id="world"></canvas>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+    <div class="stars"></div>
+        <div class="container-fluid">
 
-            <div class="content">
-                <div id='countdown-container' class="title m-b-md" data-timestamp="1517949422">
-                    Starman
-                </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="position-ref full-height">
 
-                <div class="links">
-                    <a href="https://www.youtube.com/watch?v=wbSwFU6tY1c">Lift off</a>
-                    <a href="https://www.youtube.com/watch?v=aBr2kKAHN6M&feature=youtu.be">Live view</a>
-                    <a href="https://www.flickr.com/search/?text=falcon%20heavy%20roadster">Beautiful Images</a>
-                    <a href="https://twitter.com/elonmusk">In Musk we trust</a>
-                    <a href="http://whereisroadster.com/">Where is Starman Now?</a>
+                        <div class="content">
+
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div id='countdown-container' class="title m-b-md" data-timestamp="1517949422">
+                                        Starman
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-sm links">
+                                    <a href="https://www.youtube.com/watch?v=wbSwFU6tY1c">Lift off</a>
+                                </div>
+                                <div class="col-sm links">
+                                    <a href="https://www.youtube.com/watch?v=aBr2kKAHN6M&feature=youtu.be">Live view</a>
+                                </div>
+                                <div class="col-sm links">
+                                    <a href="https://www.flickr.com/search/?text=falcon%20heavy%20roadster">Beautiful Images</a>
+                                </div>
+                                <div class="col-sm links">
+                                    <a href="https://twitter.com/elonmusk">In Musk we trust</a>
+                                </div>
+                                <div class="col-sm links">
+                                    <a href="http://whereisroadster.com/">Where is Starman Now?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div id="roadster-img">
+                <img src="{{ asset("images/roadster-drawn.png") }}" />
+            </div>
+
         </div>
-        <div id="roadster-img">
-            <img src="{{ asset("images/roadster-drawn.png") }}" />
-        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 
         <script>
@@ -117,7 +181,28 @@
             var since = moment.unix( document.querySelector('#countdown-container').getAttribute('data-timestamp') );
             document.getElementById('countdown-container').innerHTML = since.from( moment() );
 
-            (function() {
+            $(document).ready(function(){
+                var stars=800;
+                var $stars=$(".stars");
+                var r=800;
+                for(var i=0;i<stars;i++){
+                    var $star=$("<div/>").addClass("star");
+                    $stars.append($star);
+                }
+                $(".star").each(function(){
+                    var cur=$(this);
+                    var s=0.2+(Math.random()*1);
+                    var curR=r+(Math.random()*300);
+                    cur.css({
+                        transformOrigin:"0 0 "+curR+"px",
+                        transform:" translate3d(0,0,-"+curR+"px) rotateY("+(Math.random()*360)+"deg) rotateX("+(Math.random()*-50)+"deg) scale("+s+","+s+")"
+
+                    })
+                })
+            })
+            //THANK YOU https://codepen.io/lbebber/ - this is also gorgeous!!
+
+            /*(function() {
                 var COLORS, Confetti, NUM_CONFETTI, PI_2, canvas, confetti, context, drawCircle, i, range, resizeWindow, xpos;
 
                 NUM_CONFETTI = 150;
@@ -231,7 +316,7 @@
 
                 step();
 
-            }).call(this);
+            }).call(this);*/
 
             //THANK YOU Linmiao Xu, this is beautiful! - https://codepen.io/linrock/pen/Amdhr
         </script>
