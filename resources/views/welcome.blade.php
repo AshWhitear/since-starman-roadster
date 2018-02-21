@@ -83,6 +83,7 @@
 
             #roadster-img img{
                 width: 100%;
+                max-width: 1200px;
             }
 
             /**/
